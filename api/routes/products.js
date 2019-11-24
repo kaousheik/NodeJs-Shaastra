@@ -7,8 +7,21 @@ router.get("/", (req, res, next) => {
   });
 });
 router.post("/", (req, res, next) => {
+  //   const product = {
+  //     price: req.body.price,
+  //     name: req.body.name
+  //   };
+  //   res.status(200).json({
+  //     message: "Handle POST request for products",
+  //     product
+  //   });
+  const product = {
+    name: req.body.name,
+    price: req.body.price
+  };
   res.status(200).json({
-    message: "Handle POST request for products"
+    message: "POST request for product",
+    product
   });
 });
 router.get("/:id", (req, res, next) => {
