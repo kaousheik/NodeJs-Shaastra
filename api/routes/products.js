@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Product = require("../models/product");
+const checkAuth = require("../middleware/check-auth");
 router.get("/", (req, res, next) => {
   Product.find()
     .select("name price _id")
@@ -37,7 +38,7 @@ router.get("/", (req, res, next) => {
       });
     });
 });
-router.post("/", (req, res, next) => {
+router.post("/", checkAuth, (req, res, next) => {
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -93,7 +94,7 @@ router.get("/:id", (req, res, next) => {
       res.status(500).json({ error: err });
     });
 });
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", checkAuth, (req, res, next) => {
   const id = req.params.id;
   const updateOps = {};
   for (const ops of req.body) {
@@ -117,7 +118,7 @@ router.patch("/:id", (req, res, next) => {
       });
     });
 });
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", checkAuth, (req, res, next) => {
   const id = req.params.id;
 
   Product.remove({ _id: id })
