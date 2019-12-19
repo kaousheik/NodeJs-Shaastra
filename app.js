@@ -1,8 +1,17 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
+
+mongoose.connect(
+  "mongodb+srv://kaousheik:kaousheik@node-workshop-rmmy8.mongodb.net/test?retryWrites=true&w=majority",
+  {
+    useMongoClient: true
+  }
+);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
